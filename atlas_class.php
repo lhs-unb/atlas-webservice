@@ -29,7 +29,7 @@ provides more than one category using comma-separated values (like 185,195,132).
 
 == Example ==
 
-http://lhs.unb.br/webservice/atlas_class.php?type=ponto&class=185,186
+http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']; ?>?type=ponto&class=185,186
 
 
 == Changelog ==

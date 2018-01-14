@@ -1,1 +1,3 @@
 real_ip, ip, date, file
+::1,::1,'January 14, 2018, 12:44:39 pm',search
+::1,::1,'January 14, 2018, 12:45:45 pm',search.php?type=ponto&class=185,186&query=S%C3%A3o
