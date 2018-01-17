@@ -35,7 +35,7 @@ than one category using comma-separated values (like 185,195,132).
 
 == Example ==
 
-http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']; ?>?type=ponto&class=185,186&phrase=São
+http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']; ?>?class=185,186&init=1580&end=1640&phrase=São Paulo
 
 
 <?php
