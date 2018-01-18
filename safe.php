@@ -1,6 +1,12 @@
 <?php
 $conn = pg_connect("dbname='XXXX' user='XXXX' password='XXXX' host='XXXX'");
 
+# Connect to PostgreSQL database
+if (!$conn) {
+    echo "Not connected : " . pg_error();
+    exit;
+}
+
 $file = 'logs/access.log';
 /*
 $keys = array(

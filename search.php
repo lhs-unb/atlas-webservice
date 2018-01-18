@@ -25,7 +25,7 @@ init (4-digit integer, YYYY) - Initial year of the search range.
 
 end (4-digit integer, YYYY) - Final year of the search range.
 
-limit (integer, default=10) - Number of entries tthat the service will return.
+limit (integer, default=10) - Number of entries that the service will return.
 
 class (integer, comma-separated) - refers to the categories that are attached 
 to a particular feature. For a comprehensive list of these categories, see 

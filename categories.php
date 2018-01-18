@@ -19,20 +19,6 @@ Categories:
 <?php
 
 
-
-function escapeJsonString($value) { # list from www.json.org: (\b backspace, \f formfeed)
-  $escapers = array("\\", "/", "\"", "\n", "\r", "\t", "\x08", "\x0c");
-  $replacements = array("\\\\", "\\/", "\\\"", "\\n", "\\r", "\\t", "\\f", "\\b");
-  $result = str_replace($escapers, $replacements, $value);
-  return $result;
-}
- 
-# Connect to PostgreSQL database
-if (!$conn) {
-    echo "Not connected : " . pg_error();
-    exit;
-}
-
 $sql = "SELECT id, nome FROM classificacoes WHERE pai_id IS NULL ORDER BY nome";
 
 $rs = pg_query($conn, $sql);
