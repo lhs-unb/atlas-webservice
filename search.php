@@ -69,9 +69,9 @@ if(isset($_GET['class']) && $class = $_GET['class']) {
 	$order++;
 }
 
-$sql = "SELECT DISTINCT nome, codigo, hierarquia, inicio, termino FROM busca_geral
+$sql = "SELECT DISTINCT nome, codigo, hierarquia, inicio, termino, observacoes FROM busca_geral
 			WHERE status = 2
-			AND nome LIKE $1
+			AND LOWER(nome) LIKE LOWER($1)
 			". $where ."
 			ORDER BY nome, inicio
 			LIMIT $2
@@ -98,7 +98,7 @@ if (!$rs) {
 
 $output = "";
 while ($row = pg_fetch_assoc($rs)) {
-	$output .= "{\"id\" : ". $row['codigo'] .",\"name\" : \"". escapeJsonString($row['nome']) ."\",\"init\" : ". $row['inicio'] .",\"end\" : ". $row['termino'] ."},";
+	$output .= "{\"id\" : ". $row['codigo'] .",\"name\" : \"". escapeJsonString($row['nome']) ."\",\"init\" : ". $row['inicio'] .",\"end\" : ". $row['termino'] .", \"obs\" : ". $row['observacoes'] ."},";
 }
 
 $output = "[". substr($output, 0, -1) . "]";
