@@ -1,5 +1,5 @@
 <?php
-$conn = pg_connect("dbname='XXXX' user='XXXX' password='XXXX' host='XXXX'");
+$conn = pg_connect("dbname='oduduwa' user='postgres' password='adminadmin' host=localhost");
 
 # Connect to PostgreSQL database
 if (!$conn) {

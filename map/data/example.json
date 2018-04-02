@@ -1,0 +1,43 @@
+{
+	"name": "Dom João da Silva Sauro",
+	"observation": "Foi importante dinossauro no império espanhol.",
+	"points" : [
+		{ 
+			"type": "Nascimento",
+			"date": "1570",
+			"place_id": 1797
+		},		
+		{ 
+			"type": "Estudo",
+			"date": "1590",
+			"place_id": 1717
+		},		
+		{ 
+			"type": "Posto",
+			"description": "Juiz de Fora",
+			"date": "1610",
+			"place_id": 37978
+		},		
+		{ 
+			"type": "Posto",
+			"description": "Ouvidor",
+			"date": "1630",
+			"place_id": 38023
+		},
+		{ 
+			"type": "Morte",
+			"description": "Ouvidor",
+			"date": "1640",
+			"place_id": 362
+		}
+	],
+	"travels" : [
+		{
+			"type": "Viagem",
+			"description": "Exploração de metais preciosos",
+			"itinerary": [
+				1717,37978,38023
+			]
+		}
+	]
+}

@@ -77,7 +77,7 @@ $sql = "SELECT DISTINCT nome, codigo, hierarquia, inicio, termino, observacoes F
 			LIMIT $2
 			";
 
-/*
+			/*
 //debug function for pg_query_params()
 $debug = preg_replace_callback( 
         '/\$(\d+)\b/',
@@ -98,7 +98,7 @@ if (!$rs) {
 
 $output = "";
 while ($row = pg_fetch_assoc($rs)) {
-	$output .= "{\"id\" : ". $row['codigo'] .",\"name\" : \"". escapeJsonString($row['nome']) ."\",\"init\" : ". $row['inicio'] .",\"end\" : ". $row['termino'] .", \"obs\" : ". $row['observacoes'] ."},";
+	$output .= "{\"id\" : ". $row['codigo'] .",\"name\" : \"". escapeJsonString($row['nome']) ."\",\"init\" : ". $row['inicio'] .",\"end\" : ". $row['termino'] .", \"obs\" : \"". escapeJsonString($row['observacoes']) ."\"},";
 }
 
 $output = "[". substr($output, 0, -1) . "]";
