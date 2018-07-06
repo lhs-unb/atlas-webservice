@@ -1,7 +1,7 @@
 <?php
 
 header('Content-type: text/plain; charset=utf-8');
-require_once("conn.php");
+require_once("../../safe.php");
 
 if(!isset($_GET["file"]))
 	die("out");

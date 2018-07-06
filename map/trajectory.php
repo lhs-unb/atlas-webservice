@@ -46,38 +46,39 @@
 		fillColor: "#fff",
 		color: "#000",
 		weight: 1.5,
-		fillOpacity: 1
+		fillOpacity: 0.1
 	};
 	var education = {
 		radius: 4,
 		fillColor: "#0033cc",
 		color: "#000",
 		weight: 1,
-		fillOpacity: 1
+		fillOpacity: 0.1
 	};
 	var post = {
 		radius: 4,
 		fillColor: "#cc0000",
 		color: "#000",
 		weight: 1,
-		fillOpacity: 1
+		fillOpacity: 0.1
 	};
 	var death = {
 		radius: 4,
 		fillColor: "#000",
 		color: "#fff",
 		weight: 1,
-		fillOpacity: 1
+		fillOpacity: 0.1
 	};
 	var travel = {
 		fillColor: "#000",
 		color: "#fff",
 		weight: 1,
-		fillOpacity: 1
+		strokeOpacity: 1
 	};
 	
-	geojson = new L.GeoJSON.AJAX("transformer.php?file=<?php echo $_GET["file"]; ?>", {
+	geojson = new L.GeoJSON.AJAX("data/transformer.php?file=<?php echo $_GET["file"]; ?>", {
 		pointToLayer: function (feature, latlng) {
+				console.log(feature.properties)
 			if(feature.properties.type == 'Nascimento')		
 				return L.circleMarker(latlng, birth);
 			if(feature.properties.type == 'Estudo')		
@@ -86,12 +87,13 @@
 				return L.circleMarker(latlng, post);
 			if(feature.properties.type == 'Morte')		
 				return L.circleMarker(latlng, death);
-			if(feature.properties.type == 'Viagem')
+			if(feature.properties.type == 'Viagem') {
 				return L.circleMarker(latlng, travel);
+			}
 		},
 		onEachFeature: function(feature, layer) {
+			// binding popup
 			if (feature.properties.place) {
-				console.log(feature.properties)
 				if(feature.properties.description)
 					desc = feature.properties.description;
 				else
