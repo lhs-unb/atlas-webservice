@@ -77,18 +77,7 @@ $sql = "SELECT DISTINCT nome, codigo, hierarquia, inicio, termino, observacoes F
 			LIMIT $2
 			";
 
-			/*
-//debug function for pg_query_params()
-$debug = preg_replace_callback( 
-        '/\$(\d+)\b/',
-        function($match) use ($vals) { 
-            $key=($match[1]-1); return ( is_null($vals[$key])?'NULL':pg_escape_literal($vals[$key]) ); 
-        },
-        $sql);
-
-echo "$debug";
-*/
-
+// require_once('debug.php');
 $rs = pg_query_params($conn, $sql, $vals);
 
 if (!$rs) {

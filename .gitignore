@@ -3,3 +3,6 @@ safe.php
 safe.php
 logs/access.log
 *.log
+map/data/logs/access.log
+logs/access.log
+debug.php

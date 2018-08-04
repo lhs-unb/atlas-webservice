@@ -46,15 +46,18 @@ http://<?php echo $_SERVER['HTTP_HOST'] . $_SERVER['SCRIPT_NAME']; ?>?type=ponto
 
 == Changelog ==
 
-14/3/2018
+4 Aug 2018
+- Create standard output routine
+
+14 Mar 2018
 - Added field "observacoes" (observation) and a new parameter
 - Create alternative output (csv)
 
-18/1/2018
+18 Jan 2018
 - Rename file to list.php (atlas_class.php is not deprecated)
 - Added filter for dates
 
-13/11/2017
+13 Nov 2017
 - Removed authentication system
 - Created validation for data without geography feature (will keep the data, but include a "blank" geometry
 
@@ -68,7 +71,6 @@ $obs_add = ($obs == 'true') ? ', observacoes as obs' : '';
 $class = "{". $_GET['class'] ."}";
 
 $type = (!isset($_GET['type'])) ? 'ponto' : $_GET['type'];
-$output = (!isset($_GET['output'])) ? 'json' : $_GET['output'];
 
 if(!in_array($type, array('linha','ponto','poligono')))
 	die("Invalid geometry type");
@@ -91,7 +93,6 @@ if(isset($_GET['end']) && $end = $_GET['end']) {
 	$order++;
 }
 
-
 # Build SQL SELECT statement and return the geometry as a GeoJSON element in EPSG: 4326
 $sql = "
 	SELECT codigo, nome, inicio, termino, periodo, hierarquia, classificacaomirim, classificacaoassu, ST_AsGeoJSON(". $type .") AS geojson ". $obs_add ."
@@ -110,61 +111,7 @@ if (!$rs) {
     exit;
 }
 
-$return = '';
-
-// JSON
-if($output == "json") {
-	$rowOutput = '';
-	while ($row = pg_fetch_assoc($rs)) {
-		$geodata = ($row['geojson'] == "") ? "{}" : $row['geojson'];
-		$rowOutput = (strlen($rowOutput) > 0 ? ',' : '') . '{"type": "Feature", "geometry": ' . $geodata . ', "properties": {';
-		$props = '';
-		$id    = '';
-		
-		foreach ($row as $key => $val) {
-			if ($key != "geojson") {
-				$props .= (strlen($props) > 0 ? ',' : '') . '"' . $key . '":"' . escapeJsonString($val) . '"';
-			}
-			if ($key == "id") {
-				$id .= ',"id":"' . escapeJsonString($val) . '"';
-			}
-		}
-		
-		$rowOutput .= $props . '}';
-		$rowOutput .= $id;
-		$rowOutput .= '}';
-		$return .= $rowOutput;
-	}
-	$return = '{ "type": "FeatureCollection", "features": [ ' . $return . ' ]}';
-}
-else {
-	$count = 0;
-	$spacer = ($output == 'tsv') ? "	" : ",";
-	
-	while ($row = pg_fetch_assoc($rs)) {
-		// get header
-		if($count == 0)
-			$header = array_keys($row);
-		
-		$line = '';
-		foreach($row as $r) {
-			if($output == 'tsv')
-				$line .= $r . $spacer;
-			else
-				$line .= "\"". str_replace("\"", "\"\"", $r) ."\"". $spacer;
-		}
-		$line = substr($line, 0, -1). "\r\n";
-		$return .= $line;
-		$count++;
-	}
-	
-	// header
-	$line = '';
-	foreach($header as $h) {
-		$line .= $h . $spacer;
-	}
-	$return = substr($line,0,-1) ."\r\n". $return;
-}
+require_once('output.php');
 
 echo $return;
 ?>
